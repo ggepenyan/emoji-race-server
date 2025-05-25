@@ -10,7 +10,7 @@ export function makeRace(id) {
       finished: false,
       panicUsed: false
     });
-  }
+  }  
   return races.get(id);
 }
 
@@ -22,10 +22,13 @@ export function applyTapBurst(raceId, pid, d) {
 
   const delta = Math.min(d, 30);
   player.taps += delta;
-  const newX = Math.floor(player.taps / 5);
+  const newX   = Math.floor(player.taps / 5);
   if (newX > player.x) player.x = Math.min(newX, 29);
+
+  if (player.x >= 29) finishRace(race, pid);
   return race;
 }
+
 
 export function applyPanic(raceId, pid) {
   const race = races.get(raceId);
@@ -40,3 +43,8 @@ export function applyPanic(raceId, pid) {
   return { race, obstacle: { type: 'oilSpill', pos } };
 }
 
+export function finishRace(race, winnerId) {
+  if (race.finished) return;
+  race.finished  = true;
+  race.winnerId  = winnerId;
+}
