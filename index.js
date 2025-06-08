@@ -3,7 +3,6 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import { nanoid } from 'nanoid';
 import { makeRace, applyTapBurst, applyPanic, races } from './raceState.js';
-import { log } from 'console';
 
 const app = express();
 app.use(express.json());
