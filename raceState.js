@@ -58,8 +58,9 @@ export function applyPanic(raceId, pid) {
   const winner = race.players[pid];
   const pos = Math.max(0, winner.x - 1);
   Object.values(race.players).forEach(p => {
-    if (p.id !== pid) {
+    if (p.id !== pid && p.x > 0) {
       p.x = Math.max(0, p.x - 2);
+      p.taps -= p.taps >= 10 ? 10 : p.taps;
     }
   });
   race.panicUsed = true;

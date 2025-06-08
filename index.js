@@ -27,6 +27,10 @@ io.on('connection', (socket) => {
   socket.on('tapBurst', ({ raceId, d }) => {
     const race = applyTapBurst(raceId, socket.id, d);
     io.to(raceId).emit('state', race);
+
+    if (race.applyPanic) {
+      io.to(raceId).emit('showPanic', race);
+    }
   });
 
   socket.on('claimPanic', ({ raceId }) => {
